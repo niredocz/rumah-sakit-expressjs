@@ -107,7 +107,7 @@ router.get('/options1', function (req, res, next) {
         await data.forEach(async (item) => {
             var itemBaru = {
                 id: item.id,
-                value: item.id
+                value: item.id + " - " + item.nama + " - " + item.harga
             };
             await options1.push(itemBaru);
         });

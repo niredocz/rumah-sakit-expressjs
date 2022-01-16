@@ -7,7 +7,7 @@ router.get('/options', function (req, res, next) {
             var options = data.map(item => {
             return {
                 id: item.no_rm,
-                value: item.nama
+                value: item.no_rm + " - " + item.nama
             }
         });
         res.json({

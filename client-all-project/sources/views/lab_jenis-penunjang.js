@@ -122,21 +122,21 @@ export default class Jenis extends JetView {
 					view: "text",
 					label: "ID Jenis Penunjang",
 					name: "id",
-					labelWidth: 100,
+					labelWidth: 200,
 					required: true
 				},
 				{
 					view: "text",
 					label: "Nama",
 					name: "nama",
-					labelWidth: 100,
+					labelWidth: 200,
 					required: true
 				},
 				{
 					view: "text",
 					label: "Biaya",
 					name: "biaya",
-					labelWidth: 100,
+					labelWidth: 200,
 					required: true
 				},
 				{

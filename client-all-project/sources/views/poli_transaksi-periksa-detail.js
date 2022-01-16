@@ -35,6 +35,13 @@ export default class TransaksiPeriksaDetail extends JetView {
 					},
 					{
 						view: "button",
+						click: () => this.kartuTransaksi_Periksa_DetailPdf(),
+						label: "Cetak PDF",
+						type: "iconButton",
+						width: 100
+					},
+					{
+						view: "button",
 						click: () => this.ubahTransaksiPeriksaDetail(),
 						label: "Ubah",
 						type: "iconButton",
@@ -133,18 +140,20 @@ export default class TransaksiPeriksaDetail extends JetView {
 					required: true
 				},
 				{
-					view: "text",
-					label: "ID Transaksi Periksa",
+					view: "richselect",
+					label: "Id_Transaksi_Periksa",
 					name: "id_transaksi_periksa",
+					options: "http://localhost:3001/transaksi-periksa-detail/options",
 					labelWidth: 200,
-					required: true
+					required: true,
 				},
 				{
-					view: "text",
-					label: "ID Tindakan",
+					view: "richselect",
+					label: "Id_Tindakan",
 					name: "id_tindakan",
+					options: "http://localhost:3001/transaksi-periksa-detail/options1",
 					labelWidth: 200,
-					required: true
+					required: true,
 				},
 				{
 					view: "text",
@@ -260,8 +269,51 @@ export default class TransaksiPeriksaDetail extends JetView {
 		}
 	}
 
+	kartuTransaksi_Periksa_DetailPdf() {
+		var row = $$("tabelTransaksiPeriksaDetail").getSelectedItem();
+		if (row) {
+			$$("kartuTransaksi_Periksa_Detail").parse(row);
+			this.webix.print($$("kartuTransaksi_Periksa_Detail"));
+		} else {
+			this.webix.alert("Tidak ada data yang dipilih");
+		}
+	}
+
+	kartuTransaksi_Periksa_Detail() {
+		return {
+			view: "template",
+			id: "kartuTransaksi_Periksa_Detail",
+			template: `
+				<div class="pdf-content">
+					<div class="title">
+						<img src='../../codebase/images/logo-sistem.png'>
+					</div>
+					<table class="tabel-pdf">
+						<tr class="content-wrap">
+							<td class="field">ID </td>
+							<td class="content"> : #id#</td>
+						</tr>
+						<tr class="content-wrap">
+							<td class="field">ID Transaksi Periksa</td>
+							<td class="content"> : #id_transaksi_periksa#</td>
+						</tr>
+						<tr class="content-wrap">
+							<td class="field">ID Tindakan</td>
+							<td class="content"> : #id_tindakan#</td>
+						</tr>
+			  <tr class="content-wrap">
+							<td class="field">Biaya</td>
+							<td class="content"> : #biaya#</td>
+						</tr>
+					</table>
+				</div>
+			`
+		};
+	}
+
 	init() {
 		this.ui(this.formTransaksiPeriksaDetail());
+		this.ui(this.kartuTransaksi_Periksa_Detail());
 	}
 	ready() {
 		this.refreshTransaksiPeriksaDetail();
